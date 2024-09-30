@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 )
 
 var LISTEN_HOST = tryEnv("LISTEN_HOST", "0.0.0.0")
@@ -14,6 +15,10 @@ var TARGET_PORT = getEnv("TARGET_PORT")
 
 var LISTEN_ADDRESS = fmt.Sprint(LISTEN_HOST, ":", LISTEN_PORT)
 var TARGET_ADDRESS = fmt.Sprint(TARGET_HOST, ":", TARGET_PORT)
+
+// ---
+
+var DEBUG_DISABLE_LOGGING, _ = strconv.ParseBool(tryEnv("DEBUG_DISABLE_LOGGING", "false"))
 
 // ---
 

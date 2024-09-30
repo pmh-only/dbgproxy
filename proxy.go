@@ -24,12 +24,17 @@ func createProxyHandler(client *fasthttp.HostClient) func(ctx *fasthttp.RequestC
 			return
 		}
 		responseTime := time.Now()
-		responseBody := responseDump.Body()
-
 		responseDump.CopyTo(&ctx.Response)
+
+		// for debug purpose
+		if DEBUG_DISABLE_LOGGING {
+			return
+		}
 
 		requestHeaders := []HeaderLogStructure{}
 		responseHeaders := []HeaderLogStructure{}
+
+		responseBody := responseDump.Body()
 
 		ctx.Request.Header.VisitAll(func(key, value []byte) {
 			requestHeaders = append(requestHeaders, HeaderLogStructure{
