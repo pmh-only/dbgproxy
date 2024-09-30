@@ -13,8 +13,6 @@ import (
 func createProxyHandler(client *fasthttp.HostClient) func(ctx *fasthttp.RequestCtx) {
 	return func(ctx *fasthttp.RequestCtx) {
 		requestTime := time.Now()
-		requestBody := ctx.Request.Body()
-
 		responseDump := fasthttp.AcquireResponse()
 		defer fasthttp.ReleaseResponse(responseDump)
 
@@ -34,6 +32,7 @@ func createProxyHandler(client *fasthttp.HostClient) func(ctx *fasthttp.RequestC
 		requestHeaders := []HeaderLogStructure{}
 		responseHeaders := []HeaderLogStructure{}
 
+		requestBody := ctx.Request.Body()
 		responseBody := responseDump.Body()
 
 		ctx.Request.Header.VisitAll(func(key, value []byte) {
